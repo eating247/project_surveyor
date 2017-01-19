@@ -1,8 +1,13 @@
 Rails.application.routes.draw do
+  get 'responses/new'
+
+  get 'responses/create'
+
   root 'surveys#index'
 
   resources :surveys do
     resources :questions
+    resources :responses
   end
 
   get '/questions/:id/edit_options', 

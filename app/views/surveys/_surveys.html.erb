@@ -4,7 +4,7 @@
     <p><b><%= survey.title %></b></p>
     <p><%= survey.description %></p>
     <p>response number goes here</p>
-    <%= link_to 'Take Survey', survey, class: 'btn btn-default' %>
+    <%= link_to 'Take Survey', new_survey_response_path(survey), class: 'btn btn-default' %>
     <%= link_to 'View Results', survey, class: 'btn btn-default' %>
     <br><br>
   </li>

@@ -1,0 +1,32 @@
+<%= render partial: 'shared/nav' %>
+
+<div class="text-center">
+  <h1>Survey Taker:</h1>
+  <hr>
+  <h3><%= @survey.title %></h3>  
+</div>
+
+<p><%= @survey.description %></p>
+
+<em class='text-muted'>Questions marked with an asterik (*) are required!</em>
+<br><br>
+
+<%= form_for @survey do |survey_fields| %>
+
+  <% @survey.questions.each do |question| %>
+  <ol>
+    <li>
+      <%= question.content %>
+        <% question.options.each do |option| %>
+        <ul>
+          <li><%= option.content %></li>
+        </ul>
+      <% end %>
+  </li>
+  </ol>
+
+  <% end %>
+
+  <%= survey_fields.submit 'Submit Your Survey', class: 'btn btn-block btn-primary' %>
+
+<% end %>
