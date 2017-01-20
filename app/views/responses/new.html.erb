@@ -11,22 +11,25 @@
 <em class='text-muted'>Questions marked with an asterik (*) are required!</em>
 <br><br>
 
-<%= form_for @survey do |survey_fields| %>
+<%= form_for [@survey, @response] do |response_fields| %>
+  <%= response_fields.hidden_field :survey_id, value: @survey.id %>
+  <% @survey.questions.each_with_index do |question, index| %>
 
-  <% @survey.questions.each do |question| %>
-  <ol>
-    <li>
-      <%= question.content %>
-        <% question.options.each do |option| %>
-        <ul>
-          <li><%= option.content %></li>
-        </ul>
-      <% end %>
-  </li>
-  </ol>
+    <%= "#{index+1}." %>
+    <%= question.content %><br>
 
+    <%= response_fields.fields_for :selections do |select_fields| %>
+        <%= select_fields.hidden_field :question_id, value: question.id %>
+        <%= select_fields.hidden_field :response_id, value: @response.id %>
+        <%= select_fields.collection_radio_buttons(:option_id, question.options, :id, :content)  do |b|
+              radio = b.label { b.radio_button + b.text }
+          %Q[<div class="radio">#{radio}</div>].html_safe
+          end %>
+    <% end %>
+
+    <br>
   <% end %>
-
-  <%= survey_fields.submit 'Submit Your Survey', class: 'btn btn-block btn-primary' %>
+  <br>
+  <%= response_fields.submit 'Submit Your Survey', class: 'btn btn-block btn-primary' %>
 
 <% end %>

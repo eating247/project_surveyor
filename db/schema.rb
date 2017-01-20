@@ -40,7 +40,7 @@ ActiveRecord::Schema.define(version: 20170119183228) do
   end
 
   create_table "selections", force: :cascade do |t|
-    t.integer  "survey_id"
+    t.integer  "response_id"
     t.integer  "question_id"
     t.integer  "option_id"
     t.datetime "created_at",  null: false
